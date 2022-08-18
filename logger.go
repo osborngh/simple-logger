@@ -2,37 +2,36 @@ package main
 
 /* Extremely Simple Logger Written By Osborn @chaos */
 /* Testing this module will be difficult since the functions (mostly) just operate as impure functions */
-/* I've debugged with a main function anyway */
 
 /* This package can be used as a base for a more advanced logger but its quite sufficient */
 
-/*
-Api: Just two functions (methods)
-LogC(msg)
-LogF(msg, filename) err // Error is for potential file opening issues
+/* Api
+Two functions
+LogC(msg) // Log Console
+LogF(msg, filename) err // Log File
 */
 
 import (
 	"fmt"
 	"os"
-	"time"
 	"strings"
+	"time"
 )
 
 type LogLevel string
 
 const (
 	/* string values are good for debugging */
-	_ = iota
-	LogInfo = "Info"
-	LogDebug = "Debug"
+	_          = iota
+	LogInfo    = "Info"
+	LogDebug   = "Debug"
 	LogWarning = "Warning"
-	LogError = "Error"
+	LogError   = "Error"
 )
 
 type Logger struct {
 	logLevel LogLevel
-	strict bool	/* When not in strict mode loginfo messages to console will not appear */
+	strict   bool /* When not in strict mode loginfo messages to console will not appear */
 }
 
 func (l *Logger) Strict() {
@@ -67,16 +66,16 @@ func (l Logger) log(level LogLevel, msg string) {
 /* Output log message to console */
 func (l Logger) LogC(msg string) {
 	switch l.logLevel {
-		case LogInfo:
-			l.log(LogInfo, msg)
-		case LogDebug:
-			l.log(LogDebug, msg)
-		case LogWarning:
-			l.log(LogWarning, msg)
-		case LogError:
-			l.log(LogError, msg)
-		default:
-			printError("Invalid Log Level")
+	case LogInfo:
+		l.log(LogInfo, msg)
+	case LogDebug:
+		l.log(LogDebug, msg)
+	case LogWarning:
+		l.log(LogWarning, msg)
+	case LogError:
+		l.log(LogError, msg)
+	default:
+		printError("Invalid Log Level")
 	}
 }
 
@@ -101,7 +100,6 @@ func (l Logger) LogF(msg string, filename string) error {
 
 	return nil
 }
-
 
 func prettify(msg string, level LogLevel) string {
 	val := string(level)
